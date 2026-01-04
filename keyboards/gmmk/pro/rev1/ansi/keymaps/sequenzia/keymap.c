@@ -1,0 +1,175 @@
+#include QMK_KEYBOARD_H
+
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
+
+#define _MAIN 0
+#define _L1 1
+#define _L2 2
+#define _L3 3
+
+#define base_color HSV_PURPLE
+
+enum main_keycodes {
+  MAIN_KEY = SAFE_RANGE,
+  L1_KEY,
+  L2_KEY,
+  L3_KEY
+};
+
+enum macro_keycodes {
+  KC_ALT_TAB,
+  KC_ALT_Q,
+  KC_CMD_TAB,
+  KC_CTL_TAB,
+  KC_CMD_SLSH
+};
+
+#define CTL_ESC     CTL_T(KC_ESC)
+#define SFT_ENT     SFT_T(KC_ENT)
+#define HPR_TAB     ALL_T(KC_TAB)
+#define GUI_SEM     GUI_T(KC_SCLN)
+#define ALT_QUO     ALT_T(KC_QUOT)
+
+#define LT_KC(ly,kc)  LT(ly, kc)
+
+#define ALT_TAB     M(KC_ALT_TAB)
+#define ALT_Q       M(KC_ALT_Q)
+#define CMD_TAB     M(KC_CMD_TAB)
+#define CTL_TAB     M(KC_CTL_TAB)
+
+#define SPC_SHFT    MT(MOD_LSFT,KC_SPC)
+#define HOME_SHFT   MT(MOD_RSFT,KC_HOME)
+#define END_CTL     MT(MOD_RCTL,KC_END)
+#define WIN_CTL     MT(MOD_RCTL,KC_LGUI)
+
+#define SUP_LYR   MO(_SUP)
+#define WIN_LYR   MO(_WIN)
+#define CODE_LYR  MO(_CODE)
+
+// --------------------------------------------------------------------------------------------------------------- //
+// *************************************************** KEY MAP *************************************************** //
+// --------------------------------------------------------------------------------------------------------------- //
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [_MAIN] = LAYOUT(
+        KC_ESC,         KC_F1,          KC_F2,              KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         KC_PSCR,        KC_MUTE,
+        KC_GRV,         KC_1,           KC_2,               KC_3,           KC_4,           KC_5,           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINS,        KC_EQL,         KC_BSPC,        KC_DEL,
+        KC_TAB,         KC_Q,           KC_W,               KC_E,           KC_R,           KC_T,           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_LBRC,        KC_RBRC,        KC_BSLS,        KC_HOME,
+        KC_RALT,        KC_A,           KC_S,               KC_D,           KC_F,           KC_G,           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,        KC_ENT,                         KC_END,
+        KC_LSFT,        KC_Z,           KC_X,               KC_C,           KC_V,           KC_B,           KC_N,           KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        KC_RSFT,                        KC_UP,          L3_KEY,
+        KC_LCTL,        KC_LGUI,        KC_LALT,            KC_SPC,                                                                         L1_KEY,         L2_KEY,         L3_KEY,                         KC_LEFT,        KC_DOWN,        KC_RGHT
+    ),
+    [_L1] = LAYOUT(
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        QK_BOOT,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,        _______,
+        _______,        _______,        _______,            _______,                                                                        _______,        _______,        _______,                        _______,        _______,        _______
+    ),
+    [_L2] = LAYOUT(
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        QK_BOOT,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,        _______,
+        _______,        _______,        _______,            _______,                                                                        _______,        _______,        _______,                        _______,        _______,        _______
+    ),
+    [_L3] = LAYOUT(
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        QK_BOOT,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        KC_INSERT,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,
+        _______,        _______,        _______,            _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,                        _______,        _______,
+        _______,        _______,        _______,            _______,                                                                        _______,        _______,        _______,                        _______,        _______,        _______
+    ),
+};
+
+// --------------------------------------------------------------------------------------------------------------- //
+// ************************************************* PROCESS KEYS ************************************************ //
+// --------------------------------------------------------------------------------------------------------------- //
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+
+        case MAIN_KEY:
+          if (record->event.pressed) {
+            set_single_persistent_default_layer(_MAIN);
+          }
+          return false;
+          break;
+
+        case L1_KEY:
+          if (record->event.pressed) {
+            layer_on(_L1);
+          } else {
+            layer_off(_L1);
+          }
+          return false;
+          break;
+
+        case L2_KEY:
+          if (record->event.pressed) {
+            layer_on(_L2);
+          } else {
+            layer_off(_L2);
+          }
+          return false;
+          break;
+
+        case L3_KEY:
+          if (record->event.pressed) {
+            layer_on(_L3);
+          } else {
+            layer_off(_L3);
+          }
+          return false;
+          break;
+      }
+    return true;
+};
+
+// --------------------------------------------------------------------------------------------------------------- //
+// ************************************************** LAYER STATE ************************************************ //
+// --------------------------------------------------------------------------------------------------------------- //
+layer_state_t layer_state_set_user(layer_state_t state) {
+
+    switch (get_highest_layer(state)) {
+
+        case _MAIN:
+            rgb_matrix_sethsv(base_color);
+            break;
+
+        case _L1:
+            rgb_matrix_sethsv(HSV_GREEN);
+            break;
+
+        case _L2:
+            rgb_matrix_sethsv(HSV_BLUE);
+            break;
+
+        case _L3:
+            rgb_matrix_sethsv(HSV_MAGENTA);
+            break;
+
+    }
+    return state;
+}
+
+// --------------------------------------------------------------------------------------------------------------- //
+// *************************************************** ENCODER *************************************************** //
+// --------------------------------------------------------------------------------------------------------------- //
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+    [2] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
+};
+
+// --------------------------------------------------------------------------------------------------------------- //
+// *************************************************** UPDATES *************************************************** //
+// --------------------------------------------------------------------------------------------------------------- //
+void keyboard_post_init_user(void) {
+    rgb_matrix_sethsv(base_color);
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+}
