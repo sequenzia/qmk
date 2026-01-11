@@ -1,0 +1,1 @@
+`qmk compile -kb drop/sense75 -km sequenzia`
